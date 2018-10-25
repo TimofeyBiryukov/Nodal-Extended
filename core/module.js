@@ -15,6 +15,7 @@ let Nodal = {
   API: null,
   APIResource: null,
   Application: null,
+  ApplicationExtended: null,
   Controller: null,
   CLI: null,
   Daemon: null,
@@ -75,6 +76,11 @@ Object.defineProperties(LazyNodal, {
       return Nodal.Application || (Nodal.Application = require('./required/application.js'));
     },
     enumerable: true
+  },
+  ApplicationExtended: {
+    get: function() {
+      return Nodal._Application || (Nodal._Application = require('./extension/application.js'));
+    }
   },
   Controller: {
     get: function() {
