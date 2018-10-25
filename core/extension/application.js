@@ -3,7 +3,7 @@
 const http = require('http');
 const fxn = require('fxn');
 const Nodal = require('nodal');
-const SocketServer = Nodal.require('./socket-server.js');
+const SocketServer = require('./socket-server.js');
 
 
 const utilities = fxn.utilities;
