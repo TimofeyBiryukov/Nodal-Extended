@@ -30,6 +30,8 @@ let Nodal = {
   Router: null,
   Scheduler: null,
   SchemaGenerator: null,
+  ACLModel: null,
+
   my: {
     Config: null,
     Schema: null,
@@ -163,6 +165,11 @@ Object.defineProperties(LazyNodal, {
       return Nodal.SchemaGenerator || (Nodal.SchemaGenerator = require('./required/db/schema_generator.js'));
     },
     enumerable: true
+  },
+  ACLModel: {
+    get: function() {
+      return Nodal.ACLModel || (Nodal.ACLModel = require('./extension/acl-composer.js'));
+    }
   }
 });
 
