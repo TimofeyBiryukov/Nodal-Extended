@@ -224,10 +224,6 @@ const ACLModel = (parent = Nodal.Model) => class extends parent {
    * @param {Model} user
    */
   static query(user) {
-    acl.hasRole(1,'group:1',(err, data) => {
-      console.log(err || data);
-    });
-
     return new ACLComposer(
       this,
       null,
