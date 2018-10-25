@@ -3,8 +3,8 @@
 const Nodal = require('nodal');
 const async = require('async');
 
-const Composer = Nodal.require('node_modules/nodal/core/required/composer.js');
-const ModelArray = Nodal.require('node_modules/nodal/core/required/model_array.js');
+const Composer = Nodal.require('../required/composer.js');
+const ModelArray = Nodal.require('../required/model_array.js');
 
 
 class ACLComposer extends Composer {

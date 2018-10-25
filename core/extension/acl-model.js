@@ -6,7 +6,7 @@ const async = require('async');
 const knex = require('knex');
 const ACLKnex = require('acl-knex');
 
-const ACLComposer = Nodal.require('lib/flow/acl-composer.js');
+const ACLComposer = Nodal.require('./acl-composer.js');
 
 let dbConfig = Nodal.my.Config.db.main;
 
