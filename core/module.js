@@ -174,7 +174,7 @@ Object.defineProperties(LazyNodal, {
   },
   ACLModel: {
     get: function() {
-      return Nodal.ACLModel || (Nodal.ACLModel = require('./extension/acl-composer.js'));
+      return Nodal.ACLModel || (Nodal.ACLModel = require('./extension/acl-model.js'));
     }
   }
 });

@@ -14,6 +14,8 @@
   "author": "Keith Horwood",
   "main": "core/module.js",
   "dependencies": {
+    "acl": "^0.4.11",
+    "acl-knex": "^0.2.3",
     "api-res": "~0.0.4",
     "async": "~1.5.2",
     "cmnd": "~0.1.0",

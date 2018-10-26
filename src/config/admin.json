@@ -1,0 +1,11 @@
+{
+  "development": {
+    "user_id": "1"
+  },
+  "test": {
+    "user_id": "1"
+  },
+  "production": {
+    "user_id": "{{= env.ADMIN_USER_ID }}"
+  }
+}

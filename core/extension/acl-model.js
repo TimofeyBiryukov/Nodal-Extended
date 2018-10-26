@@ -1,12 +1,12 @@
 
 
-const Nodal = require('nodal');
+const Nodal = require('../module');
 const ACL = require('acl');
 const async = require('async');
 const knex = require('knex');
 const ACLKnex = require('acl-knex');
 
-const ACLComposer = Nodal.require('./acl-composer.js');
+const ACLComposer = require('./acl-composer.js');
 
 let dbConfig = Nodal.my.Config.db.main;
 
