@@ -2,7 +2,6 @@
 
 const http = require('http');
 const fxn = require('fxn');
-const Nodal = require('nodal');
 const SocketServer = require('./socket-server.js');
 
 
@@ -15,7 +14,7 @@ const utilities = fxn.utilities;
  */
 class Application {
 
-  constructor(name, slave = false) {
+  constructor(name, config = {}, slave = false) {
 
     /**
      * @type {String}
@@ -35,7 +34,7 @@ class Application {
     /**
      * @type {SocketIO.Server}
      */
-    this.socketServer = new SocketServer(this.server, this.router);
+    this.socketServer = new SocketServer(config, this.server, this.router);
 
 
     console.log(`[${this.name}.${process.pid}] Startup: Starting HTTP Worker`);

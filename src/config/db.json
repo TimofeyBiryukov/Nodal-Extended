@@ -8,6 +8,10 @@
       "user": "postgres",
       "password": "",
       "database": "nodal_development"
+    },
+    "redis": {
+      "host": "localhost",
+      "port": 6379
     }
   },
 
@@ -19,6 +23,10 @@
       "user": "postgres",
       "password": "",
       "database": "nodal_test"
+    },
+    "redis": {
+      "host": "localhost",
+      "port": 6379
     }
   },
 
@@ -26,6 +34,10 @@
     "main": {
       "adapter": "postgres",
       "connectionString": "{{= env.DATABASE_URL }}"
+    },
+    "redis": {
+      "host": "{{= env.REDIS_HOST }}",
+      "port": "{{= env.REDIS_PORT }}"
     }
   }
 

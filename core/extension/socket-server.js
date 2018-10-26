@@ -1,6 +1,5 @@
 
 
-const Nodal = require('nodal');
 const IO = require('socket.io');
 const IOEmitter = require('socket.io-emitter');
 const redis = require('socket.io-redis');
@@ -8,18 +7,19 @@ const redis = require('socket.io-redis');
 
 class SocketServer {
   /**
+   * @param {Object} config
    * @param {http.Server} server
    * @param {Nodal.Router} router
    */
-  constructor(server, router) {
-    if (!Nodal.my.Config.sockets.enabled) {
+  constructor(config = {sockets: {enabled: false}}, server, router) {
+    if (!config.sockets.enabled) {
       return;
     }
 
     /**
      * @type {SocketIO.Server}
      */
-    this.io = new IO(server, Nodal.my.Config.sockets.options);
+    this.io = new IO(server, config.sockets.options);
 
     /**
      *
@@ -66,9 +66,9 @@ class SocketServer {
       socket.on('leave', unsubscribe);
     });
 
-    if (Nodal.my.Config.sockets.use_redis) {
-      this.io.adapter(redis(Nodal.my.Config.db.redis));
-      this.ioEmitter = new IOEmitter(Nodal.my.Config.db.redis);
+    if (config.sockets.use_redis) {
+      this.io.adapter(redis(config.db.redis));
+      this.ioEmitter = new IOEmitter(config.db.redis);
     }
   }
 

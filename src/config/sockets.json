@@ -1,0 +1,21 @@
+{
+  "development": {
+    "enabled": false,
+    "options": {
+      "path": "/socket.io",
+      "serverClient": true
+    },
+    "use_redis": false
+  },
+  "test": {
+    "enabled": false,
+    "options": {}
+  },
+  "production": {
+    "enabled": false,
+    "options": {
+      "serverClient": false
+    },
+    "use_redis": false
+  }
+}

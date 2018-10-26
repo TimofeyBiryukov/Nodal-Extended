@@ -5,7 +5,7 @@ const Nodal = require('nodal');
 // const applicationFactory = Nodal.require('lib/core/application-factory.js'); // TODO
 const applicationFactory = function () {
   if (!global.__app) {
-    global.__app = new Nodal.ApplicationExtended();
+    global.__app = new Nodal.ApplicationExtended('app', Nodal.my.Config);
   }
   return global.__app;
 };
