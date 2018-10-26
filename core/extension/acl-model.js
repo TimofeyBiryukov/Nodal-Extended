@@ -8,40 +8,11 @@ const ACLKnex = require('acl-knex');
 
 const ACLComposer = require('./acl-composer.js');
 
-let dbConfig = Nodal.my.Config.db.main;
-
-// Replace main db config with local version if exits
-if (
-  process.env.NODE_ENV !== 'production' &&
-  Nodal.my.Config.hasOwnProperty('local') &&
-  Nodal.my.Config.local.hasOwnProperty('db') &&
-  Nodal.my.Config.local.db.hasOwnProperty('main')
-) {
-  dbConfig = Nodal.my.Config.local.db.main;
-}
-
-let db = knex({
-  client: 'postgres',
-  connection: dbConfig
-});
-let aclKnex = new ACLKnex(db, 'postgres', 'acl_');
-let acl = new ACL(aclKnex);
-
 const READ = 'read';
 const UPDATE = 'update';
 const DESTROY = 'destroy';
 const OWNER = [READ, UPDATE, DESTROY];
 const ADMIN_ROLE = 'admin';
-
-/**
- * Assign administrator roles to a user
- * config/admin.json - to configure admin account
- */
-if (Nodal.my.Config.admin.user_id) {
-  acl.addUserRoles(Nodal.my.Config.admin.user_id, ADMIN_ROLE, (err) => {
-    if (err) throw err;
-  });
-}
 
 
 /**
@@ -54,6 +25,29 @@ if (Nodal.my.Config.admin.user_id) {
  * @return {Nodal.Model}
  */
 const ACLModel = (parent = Nodal.Model) => class extends parent {
+
+  /**
+   * Set the database to be used for this model
+   * @param {Nodal.Database} db
+   */
+  static setDatabase(db) {
+    this.prototype.db = db;
+
+    this.prototype.acl = new ACL(new ACLKnex(knex({
+      client: 'postgres',
+      connection: db.adapter._config
+    }), 'postgres', 'acl_'));
+
+    /**
+     * Assign administrator roles to a user
+     * config/admin.json - to configure admin account
+     */
+    if (Nodal.my.Config.admin.user_id) {
+      acl.addUserRoles(Nodal.my.Config.admin.user_id, ADMIN_ROLE, (err) => {
+        if (err) throw err;
+      });
+    }
+  }
 
   /**
    * childOf will set this ACLModel as child of another ACLModel
@@ -103,7 +97,7 @@ const ACLModel = (parent = Nodal.Model) => class extends parent {
     if (!user) return callback(new Error('No Owner User Provided'));
 
     if (this.parent) {
-      acl.isAllowed(
+      this.acl.isAllowed(
         user.get('id'),
         `${this.parent.prototype.schema.table}:${data[this.joinField]}`,
         this.parentCreatePermission,
@@ -126,12 +120,12 @@ const ACLModel = (parent = Nodal.Model) => class extends parent {
   static super_create(data, callback, user, opt_txn) {
     super.create(data, (err, model) => {
       if (err) return callback(err);
-      acl.allow(
+      this.acl.allow(
         [`user:${user.get('id')}`, ADMIN_ROLE],
         `${this.prototype.schema.table}:${model.get('id')}`,
         OWNER
       );
-      acl.addUserRoles(user.get('id'), `user:${user.get('id')}`);
+      this.acl.addUserRoles(user.get('id'), `user:${user.get('id')}`);
       callback(err, model);
     }, opt_txn);
   }
@@ -192,12 +186,12 @@ const ACLModel = (parent = Nodal.Model) => class extends parent {
     let resource = `${this._table}:${this.get('id')}`;
 
     async.parallel([
-      callback => acl.isAllowed(user.get('id'), resource, permission, callback),
+      callback => this.acl.isAllowed(user.get('id'), resource, permission, callback),
       callback => {
         let tasks = [];
         user._groups.forEach(group => {
           tasks.push(cb => {
-            acl.isAllowed(`group${group.get('id')}`, resource, permission, cb);
+            this.acl.isAllowed(`group${group.get('id')}`, resource, permission, cb);
           });
         });
         async.parallel(tasks, (err, groupsAccess) => {
@@ -228,7 +222,7 @@ const ACLModel = (parent = Nodal.Model) => class extends parent {
       this,
       null,
       user,
-      acl,
+      this.acl,
       this.parent,
       this.joinField,
       this.parentReadPermission
@@ -245,7 +239,7 @@ const ACLModel = (parent = Nodal.Model) => class extends parent {
       this,
       null,
       user,
-      acl,
+      this.acl,
       this.parent,
       this.joinField,
       this.parentReadPermission
@@ -275,7 +269,7 @@ const ACLModel = (parent = Nodal.Model) => class extends parent {
       this,
       null,
       user,
-      acl,
+      this.acl,
       this.parent,
       this.joinField,
       this.parentReadPermission
@@ -364,7 +358,7 @@ const ACLModel = (parent = Nodal.Model) => class extends parent {
 
     user._groups.forEach(group => {
       tasks.push(cb => {
-        acl.allowedPermissions(
+        this.acl.allowedPermissions(
           `group${group.get('id')}`,
           resource,
           (err, data) => cb(err, data[resource])
@@ -373,7 +367,7 @@ const ACLModel = (parent = Nodal.Model) => class extends parent {
     });
 
     tasks.push(cb => {
-      acl.allowedPermissions(
+      this.acl.allowedPermissions(
         user.get('id'),
         resource,
         (err, data) => cb(err, data[resource])
@@ -421,22 +415,22 @@ const ACLModel = (parent = Nodal.Model) => class extends parent {
       return callback(new Error('Must provide object owner & model'));
     }
 
-    acl.isAllowed(owner.get('id'),
+    this.acl.isAllowed(owner.get('id'),
       `${this.schema.table}:${this.get('id')}`, OWNER, (err, allowed) => {
         if (err) return callback(new Error(err));
         if (!allowed) return callback(new Error('Access Forbidden'));
         if (permissions.indexOf(READ) < 0) permissions.push(READ);
-        acl.allow(
+        this.acl.allow(
           `${opt_type || 'user'}:${model.get('id')}`,
           `${this.schema.table}:${this.get('id')}`,
           permissions
         );
         if (model._table === 'groups') {
           // key must be different for groups
-          acl.addUserRoles(`group${model.get('id')}`,
+          this.acl.addUserRoles(`group${model.get('id')}`,
             `${opt_type || 'user'}:${model.get('id')}`);
         } else {
-          acl.addUserRoles(model.get('id'),
+          this.acl.addUserRoles(model.get('id'),
             `${opt_type || 'user'}:${model.get('id')}`);
         }
         callback(err, allowed);
@@ -467,8 +461,8 @@ const ACLModel = (parent = Nodal.Model) => class extends parent {
     if (model._table === 'groups') modelID = `group${modelID}`;
 
     async.parallel([
-      (cb) => acl.isAllowed(ownerID, resource, OWNER, cb),
-      (cb) => acl.isAllowed(modelID, resource, READ, cb)
+      (cb) => this.acl.isAllowed(ownerID, resource, OWNER, cb),
+      (cb) => this.acl.isAllowed(modelID, resource, READ, cb)
     ], (err, allowedList) => {
       if (err) return callback(new Error(err));
 
@@ -480,9 +474,11 @@ const ACLModel = (parent = Nodal.Model) => class extends parent {
 
       if (!allowed) return callback(new Error('Access Forbidden'));
 
-      acl.removeAllow(`${type || 'user'}:${model.get('id')}`, resource, OWNER, callback);
+      this.acl.removeAllow(`${type || 'user'}:${model.get('id')}`, resource, OWNER, callback);
     });
   }
 };
+
+ACLModel.prototype.acl = null;
 
 module.exports = ACLModel;
