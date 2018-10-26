@@ -1,12 +1,6 @@
 'use strict';
 
-const Database = require('./database.js');
 const SchemaGenerator = require('./schema_generator.js');
-
-const fs = require('fs');
-
-const colors = require('colors/safe');
-const inflect = require('i')();
 
 class Migration {
 
@@ -184,6 +178,6 @@ class Migration {
   }
 
 
-};
+}
 
 module.exports = Migration;
