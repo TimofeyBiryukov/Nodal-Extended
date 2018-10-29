@@ -1,6 +1,5 @@
 'use strict';
 
-const Nodal = require('../module');
 const fxn  = require('fxn');
 const url = require('url');
 const querystring = require('querystring');
