@@ -1,8 +1,8 @@
 
 
 const Nodal = require('../module');
-const SocketEvent = Nodal.require('lib/core/socket-event');
-const applicationFactory = Nodal.require('lib/core/application-factory');
+const SocketEvent = require('./socket-event');
+const applicationFactory = require('./application-factory');
 
 class Publisher extends Nodal.Model {
   constructor() {
