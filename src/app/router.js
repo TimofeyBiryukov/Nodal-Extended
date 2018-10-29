@@ -1,7 +1,7 @@
 'use strict';
 
 const Nodal = require('nodal');
-const router = new Nodal.Router();
+const router = new Nodal.extended.Router();
 
 /* Middleware */
 /* executed *before* Controller-specific middleware */

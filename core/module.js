@@ -46,6 +46,7 @@ let Nodal = {
     SocketServer: null,
     SocketEvent: null,
     Controller: null,
+    Router: null,
     PublisherModel: null,
     ACLModel: null,
     ACLComposer: null
@@ -229,6 +230,9 @@ Object.defineProperties(LazyNodal.extended, {
   },
   Controller: {
     get: () => Nodal.extended.Controller || (Nodal.extended.Controller = require('./extended/controller.js'))
+  },
+  Router: {
+    get: () => Nodal.extended.Router || (Nodal.extended.Router = require('./extended/router.js'))
   },
   PublisherModel: {
     get: () => Nodal.extended.Publisher || (Nodal.extended.Publisher = require('./extended/publisher.js'))
