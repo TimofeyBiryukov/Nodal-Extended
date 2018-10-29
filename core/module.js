@@ -223,6 +223,7 @@ Object.defineProperties(LazyNodal.extended, {
   Application: {
     get: () => Nodal.extended.Application || (Nodal.extended.Application = require('./extended/application.js'))
   },
+
   /**
    * helper application bus for sockets server
    */
@@ -260,7 +261,7 @@ Object.defineProperties(LazyNodal.extended, {
   },
 
   /**
-   * Router will allow
+   * Router will allow custom routes binding
    */
   Router: {
     get: () => Nodal.extended.Router || (Nodal.extended.Router = require('./extended/router.js'))
