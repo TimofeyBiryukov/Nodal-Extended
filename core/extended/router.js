@@ -1,13 +1,14 @@
 'use strict';
 
 const Nodal = require('../module');
+const fxn  = require('fxn');
 const url = require('url');
 const querystring = require('querystring');
 const domain = require('domain'); // TODO: Will be deprecated
 
-const utilities = Nodal.require('node_modules/fxn/core/required/utilities.js');
-const StrongParam = Nodal.require('node_modules/fxn/core/required/strong_param.js');
-const ExecutionQueue = Nodal.require('node_modules/fxn/core/required/execution_queue.js');
+const utilities = fxn.utilities;
+const StrongParam = fxn.StrongParam;
+const ExecutionQueue = fxn.ExecutionQueue;
 
 class Route {
 
