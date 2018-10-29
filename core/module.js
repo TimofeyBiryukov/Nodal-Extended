@@ -15,7 +15,6 @@ let Nodal = {
   API: null,
   APIResource: null,
   Application: null,
-  ApplicationExtended: null,
   Controller: null,
   CLI: null,
   Daemon: null,
@@ -31,7 +30,6 @@ let Nodal = {
   Router: null,
   Scheduler: null,
   SchemaGenerator: null,
-  ACLModel: null,
 
   my: {
     Config: null,
@@ -41,6 +39,12 @@ let Nodal = {
   mocha: {
     Test: null,
     TestRunner: null
+  },
+  extended: {
+    ACLModel: null,
+    Application: null,
+    Controller: null,
+    Publisher: null
   }
 };
 
@@ -49,6 +53,7 @@ let Nodal = {
 let LazyNodal = {
   my: {},
   mocha: {},
+  extended: {},
   require: function(filename) {
     return require(process.cwd() + '/' + filename);
   },
@@ -76,11 +81,6 @@ Object.defineProperties(LazyNodal, {
       return Nodal.Application || (Nodal.Application = require('./required/application.js'));
     },
     enumerable: true
-  },
-  ApplicationExtended: {
-    get: function() {
-      return Nodal._Application || (Nodal._Application = require('./extension/application.js'));
-    }
   },
   Controller: {
     get: function() {
@@ -171,11 +171,6 @@ Object.defineProperties(LazyNodal, {
       return Nodal.SchemaGenerator || (Nodal.SchemaGenerator = require('./required/db/schema_generator.js'));
     },
     enumerable: true
-  },
-  ACLModel: {
-    get: function() {
-      return Nodal.ACLModel || (Nodal.ACLModel = require('./extension/acl-model.js'));
-    }
   }
 });
 
@@ -212,6 +207,29 @@ Object.defineProperties(LazyNodal.mocha, {
       return Nodal.mocha.TestRunner || (Nodal.mocha.TestRunner = require('./mocha/test_runner.js'));
     },
     enumerable: true
+  }
+});
+
+Object.defineProperties(LazyNodal.extended, {
+  Application: {
+    get: function() {
+      return Nodal.extended._Application || (Nodal.extended._Application = require('./extension/application.js'));
+    }
+  },
+  ACLModel: {
+    get: function() {
+      return Nodal.extended.ACLModel || (Nodal.extended.ACLModel = require('./extension/acl-model.js'));
+    }
+  },
+  Controller: {
+    get: function() {
+      return Nodal.extended.Controller || (Nodal.extended.Controller = require('./extension/controller.js'));
+    }
+  },
+  Publisher: {
+    get: function() {
+      return Nodal.extended.Publisher || (Nodal.extended.Publisher = require('./extension/publisher.js'));
+    }
   }
 });
 
