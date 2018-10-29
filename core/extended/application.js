@@ -1,8 +1,9 @@
 
+const Nodal = require('../module');
+const SocketServer = Nodal.extended.SocketServer;
 
 const http = require('http');
 const fxn = require('fxn');
-const SocketServer = require('./socket-server.js');
 
 
 const utilities = fxn.utilities;

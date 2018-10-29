@@ -2,7 +2,7 @@
 
 const Nodal = require('../module');
 const SocketEvent = require('./socket-event');
-const applicationFactory = require('./application-factory');
+const applicationBus = require('./application-bus');
 
 class Publisher extends Nodal.Model {
   constructor() {
@@ -119,7 +119,7 @@ class Publisher extends Nodal.Model {
       return;
     }
 
-    let socketServer = applicationFactory().socketServer;
+    let socketServer = applicationBus().socketServer;
     let room = this.roomName || this.name;
     let id = this.get('id');
 

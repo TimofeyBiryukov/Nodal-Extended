@@ -41,10 +41,14 @@ let Nodal = {
     TestRunner: null
   },
   extended: {
-    ACLModel: null,
     Application: null,
+    ApplicationBus: null,
+    SocketServer: null,
+    SocketEvent: null,
     Controller: null,
-    Publisher: null
+    PublisherModel: null,
+    ACLModel: null,
+    ACLComposer: null
   }
 };
 
@@ -212,24 +216,28 @@ Object.defineProperties(LazyNodal.mocha, {
 
 Object.defineProperties(LazyNodal.extended, {
   Application: {
-    get: function() {
-      return Nodal.extended._Application || (Nodal.extended._Application = require('./extension/application.js'));
-    }
+    get: () => Nodal.extended.Application || (Nodal.extended.Application = require('./extended/application.js'))
   },
-  ACLModel: {
-    get: function() {
-      return Nodal.extended.ACLModel || (Nodal.extended.ACLModel = require('./extension/acl-model.js'));
-    }
+  ApplicationBus: {
+    get: () => Nodal.extended.ApplicationBus || (Nodal.extended.ApplicationBus = require('./extended/application-bus.js'))
+  },
+  SocketServer: {
+    get: () => Nodal.extended.SocketServer || (Nodal.extended.SocketServer = require('./extended/socket-server.js'))
+  },
+  SocketEvent: {
+    get: () => Nodal.extended.SocketEvent || (Nodal.extended.SocketEvent = require('./extended/socket-event.js'))
   },
   Controller: {
-    get: function() {
-      return Nodal.extended.Controller || (Nodal.extended.Controller = require('./extension/controller.js'));
-    }
+    get: () => Nodal.extended.Controller || (Nodal.extended.Controller = require('./extended/controller.js'))
   },
-  Publisher: {
-    get: function() {
-      return Nodal.extended.Publisher || (Nodal.extended.Publisher = require('./extension/publisher.js'));
-    }
+  PublisherModel: {
+    get: () => Nodal.extended.Publisher || (Nodal.extended.Publisher = require('./extended/publisher.js'))
+  },
+  ACLModel: {
+    get: () => Nodal.extended.ACLModel || (Nodal.extended.ACLModel = require('./extended/acl-model.js'))
+  },
+  ACLComposer: {
+    get: () => Nodal.extended.ACLComposer || (Nodal.extended.ACLComposer = require('./extended/acl-composer.js'))
   }
 });
 

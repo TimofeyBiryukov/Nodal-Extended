@@ -1,12 +1,12 @@
 
 
 const Nodal = require('../module');
+const ACLComposer = Nodal.extended.ACLComposer;
+
 const ACL = require('acl');
 const async = require('async');
 const knex = require('knex');
 const ACLKnex = require('acl-knex');
-
-const ACLComposer = require('./acl-composer.js');
 
 const READ = 'read';
 const UPDATE = 'update';
