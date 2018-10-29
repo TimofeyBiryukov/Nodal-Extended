@@ -4,7 +4,7 @@ const Nodal = require('../module');
 const SocketEvent = require('./socket-event');
 const applicationBus = require('./application-bus');
 
-class Publisher extends Nodal.Model {
+class PublisherModel extends Nodal.Model {
   constructor() {
     super(...arguments);
     this.setName();
@@ -13,7 +13,7 @@ class Publisher extends Nodal.Model {
      *
      * @type {Array}
      */
-    this.__joinedPublishers = Publisher.joinedPublishers;
+    this.__joinedPublishers = PublisherModel.joinedPublishers;
   }
 
   /**
@@ -30,8 +30,8 @@ class Publisher extends Nodal.Model {
    * @param {object} options
    */
   static joinsTo(Model, options) {
-    if (new Model() instanceof Publisher && options.via) {
-      Publisher.joinedPublishers.push({
+    if (new Model() instanceof PublisherModel && options.via) {
+      PublisherModel.joinedPublishers.push({
         Model,
         via: options.via
       });
@@ -81,7 +81,7 @@ class Publisher extends Nodal.Model {
 
   /**
    *
-   * @param {Publisher} joinedModel
+   * @param {PublisherModel} joinedModel
    */
   add(joinedModel) {
     this.__sendEvent({
@@ -96,7 +96,7 @@ class Publisher extends Nodal.Model {
 
   /**
    *
-   * @param {Publisher} joinedModel
+   * @param {PublisherModel} joinedModel
    */
   remove(joinedModel) {
     this.__sendEvent({
@@ -129,11 +129,11 @@ class Publisher extends Nodal.Model {
     let socketEvent = new SocketEvent(eventData);
 
     if (eventData.action !== 'add' && eventData.action !== 'remove') {
-      Publisher.__emit(socketServer.io, room, this.name, socketEvent);
-      Publisher.__emit(socketServer.ioEmitter, room, this.name, socketEvent);
+      PublisherModel.__emit(socketServer.io, room, this.name, socketEvent);
+      PublisherModel.__emit(socketServer.ioEmitter, room, this.name, socketEvent);
     }
-    Publisher.__emit(socketServer.io, room + ':' + id, this.name, socketEvent);
-    Publisher.__emit(socketServer.ioEmitter, room + ':' + id, this.name, socketEvent);
+    PublisherModel.__emit(socketServer.io, room + ':' + id, this.name, socketEvent);
+    PublisherModel.__emit(socketServer.ioEmitter, room + ':' + id, this.name, socketEvent);
   }
 
   /**
@@ -154,6 +154,6 @@ class Publisher extends Nodal.Model {
   }
 }
 
-Publisher.joinedPublishers = [];
+PublisherModel.joinedPublishers = [];
 
-module.exports = Publisher;
+module.exports = PublisherModel;

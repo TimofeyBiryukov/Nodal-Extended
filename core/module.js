@@ -245,10 +245,10 @@ Object.defineProperties(LazyNodal.extended, {
   },
 
   /**
-   * Publisher that will publish to pub-sub with sockets
+   * PublisherModel that will publish to pub-sub with sockets
    */
   PublisherModel: {
-    get: () => Nodal.extended.Publisher || (Nodal.extended.Publisher = require('./extended/publisher.js'))
+    get: () => Nodal.extended.PublisherModel || (Nodal.extended.PublisherModel = require('./extended/publisher-model.js'))
   },
 
   /**
