@@ -33,7 +33,7 @@ const ACLModel = (parent = Nodal.Model) => class extends parent {
   static setDatabase(db) {
     this.prototype.db = db;
 
-    this.prototype.acl = new ACL(new ACLKnex(knex({
+    this.acl = new ACL(new ACLKnex(knex({
       client: 'postgres',
       connection: db.adapter._config
     }), 'postgres', 'acl_'));
@@ -43,7 +43,7 @@ const ACLModel = (parent = Nodal.Model) => class extends parent {
      * config/admin.json - to configure admin account
      */
     if (Nodal.my.Config.admin.user_id) {
-      acl.addUserRoles(Nodal.my.Config.admin.user_id, ADMIN_ROLE, (err) => {
+      this.acl.addUserRoles(Nodal.my.Config.admin.user_id, ADMIN_ROLE, (err) => {
         if (err) throw err;
       });
     }
@@ -479,6 +479,6 @@ const ACLModel = (parent = Nodal.Model) => class extends parent {
   }
 };
 
-ACLModel.prototype.acl = null;
+// ACLModel.prototype.acl = null;
 
 module.exports = ACLModel;
