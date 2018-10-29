@@ -216,30 +216,66 @@ Object.defineProperties(LazyNodal.mocha, {
 });
 
 Object.defineProperties(LazyNodal.extended, {
+  /**
+   * Extended Application will lunch a socket-server if configured
+   * and will add a respond with stream option
+   */
   Application: {
     get: () => Nodal.extended.Application || (Nodal.extended.Application = require('./extended/application.js'))
   },
+  /**
+   * helper application bus for sockets server
+   */
   ApplicationBus: {
     get: () => Nodal.extended.ApplicationBus || (Nodal.extended.ApplicationBus = require('./extended/application-bus.js'))
   },
+
+  /**
+   * Socket-Server socket.io server
+   */
   SocketServer: {
     get: () => Nodal.extended.SocketServer || (Nodal.extended.SocketServer = require('./extended/socket-server.js'))
   },
+
+  /**
+   * Socket-Event object template for pub-sub message
+   */
   SocketEvent: {
     get: () => Nodal.extended.SocketEvent || (Nodal.extended.SocketEvent = require('./extended/socket-event.js'))
   },
-  Controller: {
-    get: () => Nodal.extended.Controller || (Nodal.extended.Controller = require('./extended/controller.js'))
-  },
-  Router: {
-    get: () => Nodal.extended.Router || (Nodal.extended.Router = require('./extended/router.js'))
-  },
+
+  /**
+   * Publisher that will publish to pub-sub with sockets
+   */
   PublisherModel: {
     get: () => Nodal.extended.Publisher || (Nodal.extended.Publisher = require('./extended/publisher.js'))
   },
+
+  /**
+   * Controller will include extra methods like `respondOne`, `respondPlain`, `respondRaw`, `respondStream`
+   * and binding to custom routes with `customRoute`
+   */
+  Controller: {
+    get: () => Nodal.extended.Controller || (Nodal.extended.Controller = require('./extended/controller.js'))
+  },
+
+  /**
+   * Router will allow
+   */
+  Router: {
+    get: () => Nodal.extended.Router || (Nodal.extended.Router = require('./extended/router.js'))
+  },
+
+  /**
+   * ACLModel will add acl to the model, will require user model to work
+   */
   ACLModel: {
     get: () => Nodal.extended.ACLModel || (Nodal.extended.ACLModel = require('./extended/acl-model.js'))
   },
+
+  /**
+   * ACLComposer will compose data based on access
+   */
   ACLComposer: {
     get: () => Nodal.extended.ACLComposer || (Nodal.extended.ACLComposer = require('./extended/acl-composer.js'))
   }
