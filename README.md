@@ -8,4 +8,4 @@
 * Extended Controllers functionality (`respondOne`, `respondPlain`, `respondRaw`, `respondStream`)
 * Controller methods instead of controller can be bind to a route
 * Access Control List model (ACL) (control of access to models)
-* TODO: local custom config that overrides other configs
+* local config that overrides other configs

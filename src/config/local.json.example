@@ -1,0 +1,12 @@
+{
+  "db": {
+    "development": {
+      "main": {
+        "host": "127.0.0.1"
+      }
+    }
+  },
+  "sockets": {
+    "enabled": true
+  }
+}
