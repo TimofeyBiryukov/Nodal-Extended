@@ -7,7 +7,7 @@ Original project -> https://github.com/keithwhor/nodal
 
 ## Nodal Extended Features:
 
-* <a name="appjs">app.js</a>
+* [app.js]()
 * Local JSON Configuration
 * Socket Server
 * Socket REST API
@@ -16,7 +16,7 @@ Original project -> https://github.com/keithwhor/nodal
 * Controllers methods: `respondOne`, `respondPlain`, `respondRaw`, `respondStream`
 * Controllers methods binding to a route (used to be able to only bind whole controller to a route)
 
-## [app.js](#appjs)
+## app.js
 
 Nodal Extended adds app.js to project blueprint, this makes it easier to run server however you like and implement load balancing and process communications in a conventional manner.
 For example web-storm node.js debugger could be attached now and used as with any other node.js single process servers.
