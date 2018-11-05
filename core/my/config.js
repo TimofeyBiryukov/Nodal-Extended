@@ -115,4 +115,5 @@ config.local = localConfig;
 
 dot.templateSettings.varname = varname;
 
+console.log(config);
 module.exports = config;
