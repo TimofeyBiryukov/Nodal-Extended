@@ -1,7 +1,7 @@
 
 
 const Nodal = require('../module');
-const API = Nodal.require('../required/api.js');
+const API = require('../required/api.js');
 
 
 class Controller extends Nodal.Controller {
