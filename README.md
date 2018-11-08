@@ -3,20 +3,21 @@
 
 Nodal Extended is the project that extends NodalJS functionality
 
-Original project -> https://github.com/keithwhor/nodal
+[Nodal Github](https://github.com/keithwhor/nodal)
+[Nodal Docs](http://www.nodaljs.com/static/docs/index.html)
 
 ## Nodal Extended Features:
 
-* [app.js]()
-* Local JSON Configuration
-* Socket Server
-* Socket REST API
-* Socket PubSub models
-* Access Control List model
-* Controllers methods: `respondOne`, `respondPlain`, `respondRaw`, `respondStream`
-* Controllers methods binding to a route (used to be able to only bind whole controller to a route)
+* [app.js][]
+* [Local JSON Configuration][]
+* [Socket Server][]
+* [Socket REST API][]
+* [Socket PubSub models][]
+* [Access Control List model][]
+* [Controllers methods][] | `respondOne`, `respondPlain`, `respondRaw`, `respondStream`
+* [Controllers methods binding][]
 
-## app.js
+## app.js ##
 
 Nodal Extended adds app.js to project blueprint, this makes it easier to run server however you like and implement load balancing and process communications in a conventional manner.
 For example web-storm node.js debugger could be attached now and used as with any other node.js single process servers.
@@ -27,7 +28,7 @@ Run server
 node app
 ```
 
-## Local JSON Configuration
+## Local JSON Configuration ##
 
 Nodal Extended includes local json configuration option, see `config/local.json.example` for a configuration example.
 Local json config will override all or any provided configurations, giving you an ability to precisely configure your local or server setup without need to use env vars.
@@ -113,6 +114,52 @@ Notice that "adapter" was inherited unchanged from default configuration but "co
 
 `local.json` is ignored by git so you can store all your secrets and setup specific configuration and it will not end up in your repo.
 
+## Socket Server ##
 
+TODO
 
+## Socket REST API ##
 
+TODO
+
+## Socket PubSub models
+
+TODO
+
+## Access Control List model ##
+
+TODO
+
+## Controller methods ##
+
+New controller methods
+To use extended controller extend `Nodal.extended.Controller`
+
+```
+class MyController extends Nodal.extended.Controller {}
+
+```
+
+### respondOne
+
+Responds with one model in data object
+
+`this.respondOne(err || models, interface);`
+
+### respondPlain
+
+### respondRaw
+
+Responds with raw text
+
+`this.respondRaw(err || text, interface)`
+
+### respondStream
+
+Responds with stream
+
+`this.respondStream(err || dataStream)`
+
+## Controllers methods binging ##
+
+TODO
