@@ -1,5 +1,5 @@
 {
-  "name": "nodal",
+  "name": "nodal-extended",
   "version": "0.14.6",
   "description": "An API Server and Framework for node.js",
   "keywords": [
@@ -9,9 +9,10 @@
     "branding",
     "server",
     "modular",
-    "nodal"
+    "nodal",
+    "nodal-extended"
   ],
-  "author": "Keith Horwood",
+  "author": "Nodal: Keith Horwood | Nodal Extended: Timofey Biryukov",
   "main": "core/module.js",
   "dependencies": {
     "acl": "^0.4.11",
@@ -48,10 +49,10 @@
   },
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/keithwhor/nodal/issues"
+    "url": "https://github.com/TimofeyBiryukov/nodal-extended/issues"
   },
-  "homepage": "https://github.com/keithwhor/nodal",
+  "homepage": "https://github.com/TimofeyBiryukov/nodal-extended",
   "bin": {
-    "nodal": "cli/bin.js"
+    "nodal-extended": "cli/bin.js"
   }
 }
