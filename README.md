@@ -8,14 +8,14 @@ Nodal Extended is the project that extends NodalJS functionality
 
 ## Nodal Extended Features:
 
-* [app.js][]
-* [Local JSON Configuration][]
-* [Socket Server][]
-* [Socket REST API][]
-* [Socket PubSub models][]
-* [Access Control List model][]
-* [Controllers methods][] | `respondOne`, `respondPlain`, `respondRaw`, `respondStream`
-* [Controllers methods binding][]
+* app.js
+* Local JSON Configuration
+* Socket Server
+* Socket REST API
+* Socket PubSub models
+* Access Control List model
+* Controllers methods | `respondOne`, `respondPlain`, `respondRaw`, `respondStream`
+* Controllers methods binding
 
 ## app.js ##
 
