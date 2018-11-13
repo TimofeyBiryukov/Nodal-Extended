@@ -8,7 +8,6 @@ const inquirer = require('inquirer');
 const inflect = require('i')();
 const colors = require('colors/safe');
 const async = require('async');
-const http = require('http');
 
 class NewCommand extends Command {
 
@@ -62,9 +61,9 @@ class NewCommand extends Command {
     });
 
     // Count new nodal projects being made. :)
-    let req = http.request({host: 'api.polybit.com', port: 80, path: `/v1/nodal_initializations?version=${version}`, method: 'POST'});
-    req.on('error', (() => {}));
-    req.end();
+    // let req = http.request({host: 'api.polybit.com', port: 80, path: `/v1/nodal_initializations?version=${version}`, method: 'POST'});
+    // req.on('error', (() => {}));
+    // req.end();
 
     inquirer.prompt(questions, (promptResult) => {
 

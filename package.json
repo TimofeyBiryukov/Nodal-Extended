@@ -1,5 +1,5 @@
 {
-  "name": "nodal",
+  "name": "nodal-extended",
   "version": "0.14.6",
   "description": "An API Server and Framework for node.js",
   "keywords": [
@@ -28,7 +28,7 @@
     "fs-extra": "~0.26.4",
     "fxn": "~0.0.6",
     "i": "~0.3.4",
-    "inquirer": "^6.2.0",
+    "inquirer": "~0.11.3",
     "mime-types": "~2.1.9",
     "pg": "~4.5.5",
     "socket.io": "^2.1.1",
